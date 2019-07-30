@@ -10,6 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
+@CrossOrigin (origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping ("/reseptit")
 public class RecipeController {
@@ -32,6 +33,7 @@ public class RecipeController {
     public Iterable<Recipe> haeReseptinNimella(@PathVariable String name){
         return recipeRepository.findRecipeByNameIgnoreCase(name);
     }
+
     @PostMapping("")
     public ResponseEntity<Recipe> lisaaUusiResepti(@RequestBody Recipe newRecipe, UriComponentsBuilder builder) {
         List<Recipe> recipes = recipeRepository.findRecipeById(newRecipe.getId());
@@ -54,5 +56,9 @@ public class RecipeController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
-
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Recipe> paivita(@PathVariable Integer id,@RequestBody Recipe recipe) {
+//        recipeRepository.save(recipe);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }
