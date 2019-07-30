@@ -5,7 +5,6 @@ create table recipe (
                         description text not null,
                         ingredients text not null,
                         instructions text not null,
-                        cookingTime int not null,
                         primary key(id)
 
 );
