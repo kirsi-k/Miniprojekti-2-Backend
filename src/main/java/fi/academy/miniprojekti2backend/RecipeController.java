@@ -1,12 +1,14 @@
 package fi.academy.miniprojekti2backend;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
-@RequestMapping ("/reseptit")
+@RequestMapping ("/")
 public class RecipeController {
 
     private RecipeRepository recipeRepository;
@@ -15,6 +17,7 @@ public class RecipeController {
     public RecipeController(RecipeRepository recipeRepository){
         this.recipeRepository = recipeRepository;
     }
+
     @GetMapping("")
     public Iterable<Recipe> haeKaikkiReseptit(){
         return recipeRepository.findAll();

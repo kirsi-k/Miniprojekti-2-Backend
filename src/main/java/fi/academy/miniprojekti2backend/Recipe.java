@@ -1,8 +1,6 @@
 package fi.academy.miniprojekti2backend;
 
 
-// Tuomas kokeilee oman branchin tekoa
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,7 +16,7 @@ public class Recipe {
     private String description;
     private String ingredients;
     private String instructions;
-    private Integer cookingTime;
+
 
     public Recipe() {}
 
@@ -62,14 +60,6 @@ public class Recipe {
         this.instructions = instructions;
     }
 
-    public Integer getCookingTime() {
-        return cookingTime;
-    }
-
-    public void setCookingTime(Integer cookingTime) {
-        this.cookingTime = cookingTime;
-    }
-
     @Override
     public String toString() {
         return "Recipe{" +
@@ -78,7 +68,6 @@ public class Recipe {
                 ", description='" + description + '\'' +
                 ", ingredients='" + ingredients + '\'' +
                 ", instructions='" + instructions + '\'' +
-                ", cookingTime=" + cookingTime +
                 '}';
     }
 }
