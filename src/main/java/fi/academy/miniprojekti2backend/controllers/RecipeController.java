@@ -1,7 +1,10 @@
-package fi.academy.miniprojekti2backend;
+package fi.academy.miniprojekti2backend.controllers;
 
+import fi.academy.miniprojekti2backend.entities.Category;
+import fi.academy.miniprojekti2backend.entities.Recipe;
+import fi.academy.miniprojekti2backend.repositories.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.Random;
 
 @CrossOrigin (origins = {"http://localhost:3000"})
 @RestController
@@ -19,7 +21,7 @@ public class RecipeController {
     private RecipeRepository recipeRepository;
 
     @Autowired
-    public RecipeController(RecipeRepository recipeRepository){
+    public RecipeController(@Qualifier("recipe") RecipeRepository recipeRepository){
         this.recipeRepository = recipeRepository;
     }
     @GetMapping("")
@@ -38,11 +40,17 @@ public class RecipeController {
     public Iterable<Recipe> haeReseptinAinesosalla(@PathVariable String ingredients){
         return recipeRepository.findByIngredientsIgnoreCaseContaining(ingredients);
     }
-//    @GetMapping("/haerandom")
-//    public Iterable<Recipe> haeRandomResepti(){
-//        long maara = recipeRepository.count();
-//        Random random = new Random();
-//    }
+    @GetMapping("/haekategorialla/{category_name}")
+    public List<Recipe> haeReseptinKategorialla(@PathVariable String category_name){
+        return recipeRepository.findAllByCategory_Name(category_name);
+    }
+    @GetMapping("/haerandom")
+    public Iterable<Recipe> haeRandomResepti(){
+        long maara = recipeRepository.count();
+        int i = Math.toIntExact(maara);
+        int id = (int)(Math.random() * i + 1);
+        return recipeRepository.findRecipeById(id);
+    }
     @PostMapping("")
     public ResponseEntity<Recipe> lisaaUusiResepti(@RequestBody Recipe newRecipe, UriComponentsBuilder builder) {
         List<Recipe> recipes = recipeRepository.findRecipeById(newRecipe.getId());
@@ -50,7 +58,7 @@ public class RecipeController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
             HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(builder.path("/recipes/{id}").buildAndExpand(newRecipe.getId()).toUri());
+            headers.setLocation(builder.path("/{id}").buildAndExpand(newRecipe.getId()).toUri());
             recipeRepository.save(newRecipe);
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
         }
