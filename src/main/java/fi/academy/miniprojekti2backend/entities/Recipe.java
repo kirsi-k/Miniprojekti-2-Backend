@@ -1,12 +1,9 @@
-package fi.academy.miniprojekti2backend;
+package fi.academy.miniprojekti2backend.entities;
 
 
 // Tuomas kokeilee oman branchin tekoa
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -20,6 +17,10 @@ public class Recipe implements Serializable {
     private String description;
     private String ingredients;
     private String instructions;
+
+    @ManyToOne
+    @JoinColumn(name = "categoryid", referencedColumnName = "id")
+    public Category category;
 
     public Recipe() {}
 
@@ -63,6 +64,13 @@ public class Recipe implements Serializable {
         this.instructions = instructions;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     @Override
     public String toString() {
@@ -71,6 +79,8 @@ public class Recipe implements Serializable {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", ingredients='" + ingredients + '\'' +
-                ", instructions='" + instructions + '}';
+                ", instructions='" + instructions + '\'' +
+                ", category=" + category +
+                '}';
     }
 }
