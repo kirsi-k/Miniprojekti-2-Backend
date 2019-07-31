@@ -3,20 +3,21 @@ package fi.academy.miniprojekti2backend;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Recipe {
+public class Recipe implements Serializable {
 
     @Id
-    @GeneratedValue
-
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
     private String description;
     private String ingredients;
     private String instructions;
-
 
     public Recipe() {}
 
