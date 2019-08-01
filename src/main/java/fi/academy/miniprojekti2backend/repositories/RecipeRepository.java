@@ -9,6 +9,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/** Reseptirepositorio eli reseptidatan käsittelyyn käytettävä rajapinta, joka perii CrudRepository-rajapinnan. Rajapinnassa luodaan
+ * metodit reseptien hakuun id:n, nimen, ainesosien ja kategorian nimen perusteella
+ * qualifier "recipe" erottaa restcontrollerille recipeRepositoryn categoryRepositorysta */
 @Qualifier("recipe")
 public interface RecipeRepository extends CrudRepository <Recipe,Integer> {
 
