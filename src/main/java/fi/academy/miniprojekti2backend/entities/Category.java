@@ -1,5 +1,7 @@
 package fi.academy.miniprojekti2backend.entities;
 
+//Created by: Kirsi Kujala
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -7,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+//category-taulun entity
 @Entity
 public class Category implements Serializable {
 
@@ -16,6 +19,7 @@ public class Category implements Serializable {
 
     private String name;
 
+    //yhdistetään category-taulu ja recipe-taulu: kategorialla voi olla monta reseptiä, siksi category on one to many
     @Transient
     @JsonIgnore
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)

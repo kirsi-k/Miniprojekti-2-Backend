@@ -1,11 +1,11 @@
 package fi.academy.miniprojekti2backend.entities;
 
-
-// Tuomas kokeilee oman branchin tekoa
+//Created by: Tuomas Lahti, edited by: Kirsi Kujala
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+//recipe-taulun entity
 @Entity
 public class Recipe implements Serializable {
 
@@ -18,6 +18,8 @@ public class Recipe implements Serializable {
     private String ingredients;
     private String instructions;
 
+    /* yhdistetään reseptitauluun kategoriataulu categoryid:n kautta, tämän ohjelman logiikalla reseptillä voi olla vain yksi kategoria,
+    siksi many to one, vaikka periaatteessa voisi olla myös many to many */
     @ManyToOne
     @JoinColumn(name = "categoryid", referencedColumnName = "id")
     public Category category;
